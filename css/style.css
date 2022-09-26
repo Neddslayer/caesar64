@@ -1,5 +1,6 @@
-#center {
-  width: 300px;
-  margin: auto;
-  border: 3px solid #4287f5;
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
