@@ -1,11 +1,49 @@
 <html>
   <head>
-    <title>Profile Boxes - 0 credits</title>
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
+    <title>Caesar64 - Decode Caesar Cipher'd Base64</title>
+    <style>
+      textarea {
+        resize: none;
+      }
+    </style>
   </head>
   <body>
-    <h1>test</h1>
-    <img src="img/cardboard-box-closed.png" alt="Closed Box" class="centerimg" height="256" onclick="alert(\"goofy ahh production\");">
+    <script>
+      // Implement modulo by replacing the negative operand 
+      // with an equivalent positive operand that has the same wrap-around effect
+      function mod(n, p)
+      {
+          if ( n < 0 )
+              n = p - Math.abs(n) % p;
+
+          return n % p;
+      }
+      
+      // Function will implement Caesar Cipher to
+      // encrypt / decrypt the msg by shifting the letters
+      // of the message acording to the key
+      function encrypt(msg, key)
+      {
+          var encMsg = "";
+
+          for(var i = 0; i < msg.length; i++)
+          {
+              var code = msg.charCodeAt(i);
+
+              // Encrypt only letters in 'A' ... 'Z' interval
+              if (code >= 65 && code <= 65 + 26 - 1)
+              {
+                  code -= 65;
+                  code = mod(code + key, 26);
+                  code += 65;
+              }
+
+              encMsg += String.fromCharCode(code);
+          }
+
+          return encMsg;
+      }
+    </script>
+    
   </body>
 </html>
