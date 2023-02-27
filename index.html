@@ -29,9 +29,10 @@
           for(var i = 0; i < msg.length; i++)
           {
               var code = msg.charCodeAt(i);
+              
 
               // Encrypt only letters in 'A' ... 'Z' interval
-              if (code >= 65 && code <= 65 + 26 - 1)
+              if (code >= 65 && code <= 122)
               {
                   code -= 65;
                   code = mod(code + key, 26);
