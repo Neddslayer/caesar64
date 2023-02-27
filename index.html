@@ -43,8 +43,13 @@
 
           return encMsg;
       }
+      function fullyDecrypt() {
+        var encodedMessage = aotb(encrypt(document.getElementById('txtar').value, document.getElementById('txtarkey').value));
+        console.log(encodedMessage);
+      }
     </script>
-    <textarea id="txtar"></textarea>
+    <textarea id="txtar" placeholder="Encoded Message"></textarea>
+    <textarea id="txtarkey" placeholder="Key"></textarea>
     <button type="button" id="dcode">Decode</button>
   </body>
 </html>
