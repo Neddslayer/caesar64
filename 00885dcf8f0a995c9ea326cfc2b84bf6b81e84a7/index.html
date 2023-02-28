@@ -56,12 +56,13 @@
       }
       ( () => {
           if (window.localStorage.getItem("passwordCorrect") != "true") {
-            alert("You must enter the password first!");
+            alert("Session expired; please re enter password.");
             window.location.href = "https://neddslayer.github.io/caesar64/"
           } else {
             window.localStorage.removeItem("passwordCorrect");
           }
       } )();
+      
     </script>
     <textarea id="txtar" placeholder="Encoded Message"></textarea>
     <textarea id="txtarkey" placeholder="Key"></textarea>
