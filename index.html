@@ -101,6 +101,7 @@
         success : function(data) {
 
           window.location= url;
+          window.localStorage.setItem("passwordCorrect","true");
 
         },
         error : function(xhr, ajaxOptions, thrownError) {
