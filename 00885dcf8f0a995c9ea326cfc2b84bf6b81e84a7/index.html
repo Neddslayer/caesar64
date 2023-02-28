@@ -57,7 +57,7 @@
       ( () => {
           if (window.localStorage.getItem("passwordCorrect") != "true") {
             alert("You must enter the password first!");
-            window.url="https://neddslayer.github.io/caesar64/";
+            window.location.href = "https://neddslayer.github.io/caesar64/"
           } else {
             window.localStorage.removeItem("passwordCorrect");
           }
