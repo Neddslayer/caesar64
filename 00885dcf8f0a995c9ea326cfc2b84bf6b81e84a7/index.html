@@ -54,6 +54,14 @@
         var encodedMessage = atob(encrypt(document.getElementById('txtar').value, document.getElementById('txtarkey').value));
         document.getElementById("solution").value = encodedMessage;
       }
+      ( () => {
+          if (window.localStorage.getItem("passwordCorrect") != "true") {
+            alert("You must enter the password first!");
+            window.url="/";
+          } else {
+            window.localStorage.removeItem("passwordCorrect");
+          }
+      } )();
     </script>
     <textarea id="txtar" placeholder="Encoded Message"></textarea>
     <textarea id="txtarkey" placeholder="Key"></textarea>
