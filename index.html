@@ -35,13 +35,13 @@
               if (code >= 65 && code <= 65 + 26 - 1)
               {
                   code -= 65;
-                  code = mod(code + key, 26);
+                  code = mod(code + (26 - key), 26);
                   code += 65;
               }
               else if (code >= 97 && code <= 97 + 26 - 1)
               {
                   code -= 97
-                  code = mod(code + key, 26);
+                  code = mod(code + (26 - key), 26);
                   code += 97
               }
 
