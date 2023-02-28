@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title></title>
+    <title>Please enter the password!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
 
     body {
-
+      overflow: hidden;
       background-image: url('grunge_patterns.jpg');
       background-attachment: fixed;
       color: #333;
@@ -62,17 +62,21 @@
     }
 
     </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
 
   <body>
 
-    <div id="loginbox" class="lightbox" >
+    <div id="loginbox" class="lightbox animate__animated">
       <div class="horizontal">
         <div class="vertical">
           <div class="box">
-            <input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="password" /> <br />
+            <input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="Password" /> <br />
             <button id="loginbutton" type="button">Enter</button>
-            <p id="wrongPassword" style="display: none">wrong password</p>
+            <!--<p id="wrongPassword" style="display: none">wrong password</p>-->
           </div>
         </div>
       </div>
@@ -107,10 +111,12 @@
         error : function(xhr, ajaxOptions, thrownError) {
 
 
-          parent.location.hash= hash;
+          //parent.location.hash= hash;
 
           //$("#wrongPassword").show();
-          $("#password").attr("placeholder","wrong password");
+          $("#loginbox").toggleClass("animate__headShake");
+          $("#loginbox").toggleClass("animate__headShake");
+          $("#password").attr("placeholder","Incorrect");
           $("#password").val("");
         }
       });
