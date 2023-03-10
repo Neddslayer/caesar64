@@ -89,7 +89,51 @@
         $(".images .nulled").fadeIn();
         $(".images .message").fadeIn();
       };
+      function previewDecodeImage() {
+        var file = document.querySelector('input[name=decodeFile]').files[0];
 
+        previewImage(file, ".decode canvas", function() {
+          $(".decode").fadeIn();
+        });
+      }
+
+      function previewEncodeImage() {
+        var file = document.querySelector("input[name=baseFile]").files[0];
+
+        $(".images .nulled").hide();
+        $(".images .message").hide();
+
+        previewImage(file, ".original canvas", function() {
+          $(".images .original").fadeIn();
+          $(".images").fadeIn();
+        });
+      }
+
+      function previewImage(file, canvasSelector, callback) {
+        var reader = new FileReader();
+        var image = new Image;
+        var $canvas = $(canvasSelector);
+        var context = $canvas[0].getContext('2d');
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+
+        reader.onloadend = function () {
+          image.src = URL.createObjectURL(file);
+
+          image.onload = function() {
+            $canvas.prop({
+              'width': image.width,
+              'height': image.height
+            });
+
+            context.drawImage(image, 0, 0);
+
+            callback();
+          }
+        }
+      }
     </script>
     <div class="binary" style="display:none;">
       <h3>Binary representation of your message</h3>
