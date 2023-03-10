@@ -109,7 +109,19 @@
         <canvas></canvas>
       </div>
     </div>
-    <button class="encode btn btn-default pull-right" onclick="encodeMessage()">Encode</button>
+    <form class="form">
+      <div class="form-group">
+        <input class="form-control" type="file" name="baseFile" onchange="previewEncodeImage()">
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control message" rows="3" placeholder="Enter your message here"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="encode btn btn-default pull-right" onclick="encodeMessage()">Encode</button>
+      </div>
+    </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </body>
 </html>
