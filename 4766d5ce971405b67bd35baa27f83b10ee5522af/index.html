@@ -1,1 +1,115 @@
+<html>
+  <head>
+    <title>Caesar64 - Decode Caesar Cipher'd Base64</title>
+    <style>
+      textarea {
+        resize: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function encodeMessage() {
+        $(".binary").hide();
 
+        var text = $("textarea.message").val();
+
+        var $originalCanvas = $('.original canvas');
+        var $nulledCanvas = $('.nulled canvas');
+        var $messageCanvas = $('.message canvas');
+
+        var originalContext = $originalCanvas[0].getContext("2d");
+        var nulledContext = $nulledCanvas[0].getContext("2d");
+        var messageContext = $messageCanvas[0].getContext("2d");
+
+        var width = $originalCanvas[0].width;
+        var height = $originalCanvas[0].height;
+
+        // Check if the image is big enough to hide the message
+        if ((text.length * 8) > (width * height * 3)) {
+          alert("Text too long for chosen image....")
+
+          return;
+        }
+
+        $nulledCanvas.prop({
+          'width': width,
+          'height': height
+        });
+
+        $messageCanvas.prop({
+          'width': width,
+          'height': height
+        });
+
+        // Normalize the original image and draw it
+        var original = originalContext.getImageData(0, 0, width, height);
+        var pixel = original.data;
+        for (var i = 0, n = pixel.length; i < n; i += 4) {
+          for (var offset =0; offset < 3; offset ++) {
+            if(pixel[i + offset] %2 != 0) {
+              pixel[i + offset]--;
+            }
+          }
+        }
+        nulledContext.putImageData(original, 0, 0);
+
+        // Convert the message to a binary string
+        var binaryMessage = "";
+        for (i = 0; i < text.length; i++) {
+          var binaryChar = text[i].charCodeAt(0).toString(2);
+
+          // Pad with 0 until the binaryChar has a lenght of 8 (1 Byte)
+          while(binaryChar.length < 8) {
+            binaryChar = "0" + binaryChar;
+          }
+
+          binaryMessage += binaryChar;
+        }
+        $('.binary textarea').text(binaryMessage);
+
+        // Apply the binary string to the image and draw it
+        var message = nulledContext.getImageData(0, 0, width, height);
+        pixel = message.data;
+        counter = 0;
+        for (var i = 0, n = pixel.length; i < n; i += 4) {
+          for (var offset =0; offset < 3; offset ++) {
+            if (counter < binaryMessage.length) {
+              pixel[i + offset] += parseInt(binaryMessage[counter]);
+              counter++;
+            }
+            else {
+              break;
+            }
+          }
+        }
+        messageContext.putImageData(message, 0, 0);
+
+        $(".binary").fadeIn();
+        $(".images .nulled").fadeIn();
+        $(".images .message").fadeIn();
+      };
+
+    </script>
+    <div class="binary" style="">
+      <h3>Binary representation of your message</h3>
+      <textarea class="form-control message" style="word-wrap:break-word;"></textarea>
+    </div>
+    <div class="images" style="">
+      <div class="original" style="">
+        <h3>Original</h3>
+        <canvas width="1024" height="1024"></canvas>
+      </div>
+      <div class="nulled" style="">
+        <h3>Normalized</h3>
+        <canvas></canvas>
+      </div>
+      <div class="message" style="">
+        <h3>Message hidden in image (right click <span class="glyphicon glyphicon-arrow-right"></span> save as)</h3>
+        <canvas></canvas>
+      </div>
+    </div>
+    <button class="encode btn btn-default pull-right" onclick="encodeMessage()">Encode</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </body>
+</html>
